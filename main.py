@@ -57,7 +57,14 @@ def find_word(words):
 
 def delete_word(words):
     """输入单词，删除并提示。不存在打印「没有这个词」。"""
-    pass
+    word = input()
+    if word in words:
+        del words[word]
+        print(f"已删除 {word}")
+        return True
+    else:
+        print("没有这个词")
+        return False
 
 
 def list_all(words):
@@ -69,7 +76,19 @@ def list_all(words):
 def quiz(words):
     """从字典里随机抽一个词，打印单词，让用户输释义，对错都给提示。
     词表为空时打印「单词本是空的」。"""
-    pass
+    if not words:
+        print("单词本是空的")
+        return
+    
+    word = random.choice(list(words.keys()))
+    print(f"{word}的意思是？")
+    answer = input()
+    if answer == words[word]:
+        print("回答正确")
+        return True
+    else:
+        print(f"回答错误，正确答案应该是{words[word]}")
+        return False
 
 
 def main():
@@ -95,11 +114,12 @@ def main():
         elif choice == "2":
             find_word(words)
         elif choice == "3":
-            print("未实现")
+            delete_word(words)
+            save_words(words)
         elif choice == "4": 
             list_all(words)
         elif choice == "5": 
-            print("未实现")
+            quiz(words)
         else: 
             print("没有这个选项")
 main()
